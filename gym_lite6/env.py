@@ -177,7 +177,6 @@ class UfactoryLite6Env(gym.Env):
           )
           if self.obs_type == "pixels_state_lerobot":
               self.observation_space["agent_pos"] = spaces.Box(low=np.concatenate((self.model.jnt_range[self.joint_qpos, 0], [-1])), high=np.concatenate((self.model.jnt_range[self.joint_qpos, 1],[1])), shape=(7,), dtype=np.float64)
-              print(f"{self.observation_space.keys()=}")
         else:
           raise KeyError(f"Invalid observation type {self.obs_type}")
 
