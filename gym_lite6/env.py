@@ -54,11 +54,10 @@ class UfactoryLite6Env(gym.Env):
 
         self.bounds = [self.model.jnt_range[:6, 0], self.model.jnt_range[:6, 1]]
 
-        if hasattr(task, '__call__'):
-            self.task = task()
-        else:
-            self.task = task
+        # task selection via a string for compatibility with lerobot/gym_aloha
+        self.task = self._make_task(task)
         self.task_description = self.task.task_description
+
         self.obs_type = obs_type
         self.action_type = action_type
         self.render_mode = render_mode
@@ -231,6 +230,18 @@ class UfactoryLite6Env(gym.Env):
             frame.attach(spec)
         return parent_spec.compile()
 
+    def _make_task(self, task_name):
+        if task_name == "grasp_and_lift":
+            from .pickup_task import GraspAndLiftTask
+            task = GraspAndLiftTask('gripper_left_finger', 'gripper_right_finger', 'box', 'floor')
+        elif task_name == "grasp":
+            from .pickup_task import GraspTask
+            task = GraspTask('gripper_left_finger', 'gripper_right_finger', 'box', 'floor')
+        else:
+            raise NotImplementedError(f"task {task_name} is unknown. Please specify task as a string, options are 'grasp_and_lift' and 'grasp'")
+        
+        return task
+            
 
     def gripper_action_to_force(self, action):
         """
@@ -358,6 +369,7 @@ class UfactoryLite6Env(gym.Env):
 
             mujoco.mj_step(self.model, self.data)
         observation = self._get_observation()
+
         reward = self.task.get_reward(self.model, self.data)
         terminated = False
         truncated = False
