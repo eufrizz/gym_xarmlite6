@@ -301,12 +301,16 @@ class UfactoryLite6Env(gym.Env):
         return self.renderer.render()
 
 
-    def reset(self, seed=None, options=None, qpos=None, box_pos=None, box_quat=None):
+    def reset(self, seed=None, options={}):
         """
         If state is specified, it directly sets the mujoco qpos. Otherwise it is reset to a random state
         """
         super().reset(seed=seed)
         mujoco.mj_resetData(self.model, self.data)
+        options = options if options is not None else {}
+        qpos = options.get("qpos", None)
+        box_pos = options.get("box_pos", None)
+        box_quat = options.get("box_quat", None)
         
         if box_pos is None:
             box_pos = self.object_space.sample()[:3]
@@ -655,3 +659,21 @@ class UfactoryLite6Env(gym.Env):
         # A state is valid if there are no collisions
         return not any(np.isin(self.ik_data.contact.geom.flatten(), np.arange(1, 18)))
         # return self.ik_data.ncon == 0
+    
+    def sample_qpos_in_bounds(self, min, max, quat_mean, quat_stddev):
+        """
+        Each is x,y,z bounds for end effector
+        """
+        assert(len(min) == 3 and len(min.shape) == 1)
+        assert(len(max) == 3 and len(max.shape) == 1)
+        assert(self.observation_space['ee_pose']['pos'].contains(min))
+        assert(self.observation_space['ee_pose']['pos'].contains(max))
+        # sample end-effector position
+        ee_pos = np.random.uniform(min, max)
+        quat = np.random.normal(quat_mean, quat_stddev)
+        qpos = self.unwrapped.solve_ik(ee_pos, quat)
+        while not self.unwrapped.is_state_valid(qpos):
+            ee_pos = np.random.uniform(min, max)
+            quat = np.random.normal(quat_mean, quat_stddev)
+            qpos = self.unwrapped.solve_ik(ee_pos, quat)
+        return qpos

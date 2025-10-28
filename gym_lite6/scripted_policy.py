@@ -80,7 +80,7 @@ class OMPLPlanner:
             print("OMPL path found!")
             # Get the planned path
             path = pdef.getSolutionPath()
-            path.interpolate(int(path.length() * 40)) # Densify the path
+            path.interpolate(int(path.length() * 30)) # Densify the path
             
             # Convert path from OMPL states to a list of numpy arrays
             qpos_path = [np.array([path.getState(i)[j] for j in range(self.env.unwrapped.dof)]) for i in range(path.getStateCount())]
