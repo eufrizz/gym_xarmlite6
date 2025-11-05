@@ -311,6 +311,31 @@ class UfactoryLite6Env(gym.Env):
         qpos = options.get("qpos", None)
         box_pos = options.get("box_pos", None)
         box_quat = options.get("box_quat", None)
+        box_rgba = options.get("box_rgba", None)
+        floor_rgba = options.get("floor_rgba", None)
+        lighting = options.get("lighting", None)
+
+        if box_rgba == 'random':
+            self.model.geom('box').rgba = np.concatenate([np.random.uniform(size=[3]), [1]])
+        elif box_rgba is not None:
+            assert len(box_rgba) == 4, f"Invalid input for box_rgba - should be an array of length 4, got {box_rgba}"
+            self.model.geom('box').rgba = box_rgba
+        
+        if floor_rgba == 'random':
+            self.model.geom('floor').rgba = np.concatenate([np.random.uniform(size=[3]), np.random.uniform(size=[1])*0.5+0.5])
+            self.model.material('groundplane').reflectance = np.random.uniform(size=[1])*0.25
+        elif floor_rgba is not None:
+            assert len(floor_rgba) == 4, f"Invalid input for box_rgba - should be an array of length 4, got {box_rgba}"
+            self.model.geom('floor').rgba = floor_rgba
+            self.model.material('groundplane').reflectance = 0.2
+        else:
+            self.model.geom('floor').rgba = [0.22, 0.35, 0.5, 1]
+            self.model.material('groundplane').reflectance = 0.2
+
+        
+        if lighting == 'random':
+            self.randomize_scene_lighting()
+        
         
         if box_pos is None:
             box_pos = self.object_space.sample()[:3]
@@ -677,3 +702,32 @@ class UfactoryLite6Env(gym.Env):
             quat = np.random.normal(quat_mean, quat_stddev)
             qpos = self.unwrapped.solve_ik(ee_pos, quat)
         return qpos
+
+
+    def randomize_scene_lighting(self):
+        """
+        Randomizes the position, direction, and color of the first world light
+        source (index 0) in the MuJoCo model.
+
+        Args:
+            model: The MuJoCo model (mujoco.MjModel) object.
+        """
+        # Assuming the first light (index 0) is the primary world light defined in XML
+        LIGHT_ID = 0 
+        
+        # --- 1. Randomize Position (model.light_pos) ---
+        # Randomize X and Y in a reasonable range, keep Z height positive (e.g., 1.0 to 3.0)
+        new_pos = np.array([
+            np.random.uniform(-2.0, 2.0),  # X
+            np.random.uniform(-2.0, 2.0),  # Y
+            np.random.uniform(1.0, 3.0)    # Z (Height)
+        ], dtype=np.float32)
+        self.model.light_pos[LIGHT_ID] = new_pos
+        
+        # --- 2. Randomize Direction (model.light_dir) ---
+        # Generate a random 3D direction vector and normalize it
+        new_dir = np.random.uniform(-1.0, 1.0, size=3)
+        # Ensure it's pointing downwards/inwards generally (e.g., negative Z)
+        new_dir[2] = np.random.uniform(-1.0, -0.1) 
+        new_dir /= np.linalg.norm(new_dir)
+        self.model.light_dir[LIGHT_ID] = new_dir
