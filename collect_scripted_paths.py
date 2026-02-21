@@ -1,10 +1,10 @@
-import gym_lite6.pickup_task
+import gym_xarmlite6.pickup_task
 import imageio
 import gymnasium as gym
 import numpy as np
 import mediapy as media
 import torch
-import gym_lite6.scripted_policy, gym_lite6.env
+import gym_xarmlite6.scripted_policy, gym_lite6.env
 import mujoco
 import cv2
 

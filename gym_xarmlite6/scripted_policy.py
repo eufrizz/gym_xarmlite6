@@ -1,6 +1,6 @@
 import numpy as np
 import mujoco
-from gym_lite6 import utils
+from gym_xarmlite6 import utils
 from copy import deepcopy
 
 # OMPL Imports

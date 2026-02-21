@@ -2,7 +2,7 @@ import numpy as np
 import mediapy as media
 import mujoco
 import numpy as np
-from gym_lite6.pickup_task import GraspAndLiftTask
+from gym_xarmlite6.pickup_task import GraspAndLiftTask
 
 scene_path = "models/cube_pickup.xml"
 model = mujoco.MjModel.from_xml_path(scene_path)

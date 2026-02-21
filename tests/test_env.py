@@ -1,6 +1,6 @@
 import gymnasium as gym
 import numpy as np
-from gym_lite6 import pickup_task
+from gym_xarmlite6 import pickup_task
 import pytest
 import mujoco
 from copy import deepcopy

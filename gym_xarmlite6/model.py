@@ -1,8 +1,8 @@
 from pathlib import Path
 from typing import Any, Dict
 
-MODEL_DIR = Path(__file__).parent.parent.resolve() / "models"  # note: absolute path
-ASSETS_DIR = Path(__file__).parent.parent.resolve() / "assets"
+MODEL_DIR = Path(__file__).parent.resolve() / "models"
+ASSETS_DIR = Path(__file__).parent.resolve() / "assets"
 
 
 def update_assets(
