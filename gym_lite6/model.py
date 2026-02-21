@@ -2,7 +2,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 MODEL_DIR = Path(__file__).parent.parent.resolve() / "models"  # note: absolute path
-ASSETS_DIR = Path(__file__).parent.parent.resolve() / "mujoco_menagerie/ufactory_lite6/assets"
+ASSETS_DIR = Path(__file__).parent.parent.resolve() / "assets"
 
 
 def update_assets(
