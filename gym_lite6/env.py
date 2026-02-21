@@ -3,11 +3,10 @@ from gymnasium import utils, spaces
 import mujoco
 from mujoco import minimize
 import numpy as np
-from pathlib import Path
 from copy import deepcopy
+from .env import MODEL_DIR
 
 # MENAGERIE_DIR = Path(__file__).parent.parent.parent.resolve() / "mujoco_menagerie"  # note: absolute path
-MODEL_DIR = Path(__file__).parent.parent.resolve() / "models"  # note: absolute path
 
 class UfactoryLite6Env(gym.Env):
     metadata = {"render_modes": ["rgb_array"]}

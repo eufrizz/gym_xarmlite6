@@ -3,12 +3,6 @@ import mujoco
 from gym_lite6 import utils
 from copy import deepcopy
 
-
-
-# upgraded_planner.py
-import numpy as np
-import mujoco
-
 # OMPL Imports
 from ompl import base as ob
 from ompl import geometric as og

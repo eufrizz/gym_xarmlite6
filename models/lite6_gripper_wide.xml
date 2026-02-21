@@ -162,21 +162,18 @@
     <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/> -->
 
     <!-- Free floating target body to visualise target/goal pose, with rectangular prism ends for distinction-->
-    <body name="target" pos=".3 .3 .3" quat="1 0 0 0" mocap="true">
+    <!-- <body name="target" pos=".3 .3 .3" quat="1 0 0 0" mocap="true">
       <site name="target" group="2"/>
-      <!-- <geom class="target" fromto=".07 0 0 .15 0 0" rgba="1 0 0 1"/>
-      <geom class="target" fromto="0 .07 0 0 .15 0" rgba="0 1 0 1"/>
-      <geom class="target" fromto="0 0 .07 0 0 .15" rgba="0 0 1 1"/> -->
-    </body>
+    </body> -->
   </worldbody>
 
   <actuator>
-    <position joint="joint1" group="1" class="size1" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
-    <position joint="joint2" group="1" class="size1" kp="2000" kv="600" ctrlrange="-2.61799 2.61799" />
-    <position joint="joint3" group="1" class="size2" kp="2000" kv="600" ctrlrange="-0.061087 5.23599" />
-    <position joint="joint4" group="1" class="size2" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
-    <position joint="joint5" group="1" class="size2" kp="2000" kv="600" ctrlrange="-2.1642 2.1642" />
-    <position joint="joint6" group="1" class="size3" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
+    <position name="joint1" joint="joint1" group="1" class="size1" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
+    <position name="joint2" joint="joint2" group="1" class="size1" kp="2000" kv="600" ctrlrange="-2.61799 2.61799" />
+    <position name="joint3" joint="joint3" group="1" class="size2" kp="2000" kv="600" ctrlrange="-0.061087 5.23599" />
+    <position name="joint4" joint="joint4" group="1" class="size2" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
+    <position name="joint5" joint="joint5" group="1" class="size2" kp="2000" kv="600" ctrlrange="-2.1642 2.1642" />
+    <position name="joint6" joint="joint6" group="1" class="size3" kp="2000" kv="600" ctrlrange="-6.28319 6.28319" />
 
     <velocity joint="joint1" group="2" class="size1" kv="600" ctrlrange="-4 4" />
     <velocity joint="joint2" group="2" class="size1" kv="600" ctrlrange="-4 4" />

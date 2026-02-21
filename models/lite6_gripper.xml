@@ -49,8 +49,8 @@
     <mesh file="visual/link5.stl"/>
     <mesh file="visual/link6.stl"/>
     <mesh file="visual/gripper_lite_body.stl"/>
-    <mesh file="visual/gripper_lite_left_finger_internal.stl"/>
-    <mesh file="visual/gripper_lite_right_finger_internal.stl"/>
+    <mesh file="visual/gripper_lite_left_finger_narrow.stl"/>
+    <mesh file="visual/gripper_lite_right_finger_narrow.stl"/>
     <mesh name="link_base_c" file="collision/link_base.stl"/>
     <mesh name="link1_c" file="collision/link1.stl"/>
     <mesh name="link2_c" file="collision/link2.stl"/>
@@ -75,16 +75,8 @@
   </asset>
 
   <worldbody>
-    
     <body name="link_base" childclass="lite6">
       <inertial pos="-0.00829545 3.26357e-05 0.0631195" mass="1.65394" diaginertia="0 0 0"/>
-      <!-- Angled down 20 deg -->
-      <!-- <camera name="side_cam" class="realsense_d435i_rgb_640" mode="fixed" pos="1.2 0 0.4" quat="0.5792279653395692 0.40557978767263886 0.4055797876726388 0.5792279653395691"/> -->
-      <!-- Angled down 25 deg -->
-      <camera name="side_cam" class="realsense_d435i_rgb_640" mode="fixed" pos="1.2 0 0.4" quat="0.560985526796931 0.43045933457687946 0.4304593345768794 0.5609855267969309"/>
-      <!-- <camera name="side_cam_stereo" class="realsense_d435i_stereo_640" mode="fixed" pos="1 0 0.4" quat="0.5792279653395692 0.40557978767263886 0.4055797876726388 0.5792279653395691"/> -->
-      <!-- Angled down 30 deg -->
-      <!-- <camera name="side_cam" class="realsense_d435i_rgb" mode="fixed" pos="1 0 0.4" quat="0.6123724356957946 0.35355339059327373 0.3535533905932737 0.6123724356957945"/> -->
       <geom class="visual" mesh="link_base"/>
       <geom name="link_base_c" class="collision" mesh="link_base_c"/>
       <body name="link1" pos="0 0 0.2435">
@@ -124,25 +116,25 @@
                   <geom class="visual" mesh="link6" material="silver"/>
                   <geom name="link6_c" class="collision" mesh="link6_c"/>
                   <site name="attachment_site"/>
-                  <camera name="gripper_cam" class="realsense_d435i_rgb_640" mode="fixed" pos="0.1 0 0" euler="3.141592653589793 0.7 -1.5707963267948966"/>
-                  <!-- <camera name="gripper_cam_stereo" class="realsense_d435i_stereo_640" mode="fixed" pos="0.1 0 0" euler="3.141592653589793 0.7 -1.5707963267948966"/> -->
                   <body name="gripper_body" pos="0 0 0" quat="1 0 0 0">
-                    <!-- TODO: inertia properties - these include the fingers -->
-                    <inertial pos="0.0 0.0 0.030" quat="1 0 0 0" mass="0.28"
-                    diaginertia="0.00047106 0.00033072 0.00025642" />
-                    <geom class="visual" mesh="gripper_lite_body" material="white"/>
+                    <inertial pos="0.0 0.0 0.026" quat="1 0 0 0" mass="0.26"
+                      diaginertia="0.00016117 0.000118 0.00014455" />
+                    <geom name="gripper_lite_body" class="visual" mesh="gripper_lite_body" material="white"/>
                     <geom name="gripper_lite_body_c" class="collision" mesh="gripper_lite_body_c"/>
-                    <!-- TODO: inertial properties -->
                     <body name="gripper_left_finger" pos="0 0 0.054" quat="1 0 0 0">
-                      <geom name="gripper_left_finger" mesh="gripper_lite_left_finger_internal" material="black" condim="4" solimp="2 1 0.01" solref="0.01 1" friction="1 0.005 0.0001"/>
-                      <joint name="gripper_left_finger" pos="0 0 0" axis="0 1 0" type="slide" limited="true" range="-0.0081 -1e-5" frictionloss="1" />     
+                      <inertial pos="0.0 -0.005 0.01" quat="1 0 0 0" mass="0.024"
+                        diaginertia="1.961e-6 2.274e-6 1.238e-6" />
+                      <geom name="gripper_left_finger" mesh="gripper_lite_left_finger_narrow" material="black" condim="4" solimp="2 1 0.01" solref="0.01 1" friction="1 0.005 0.0001"/>
+                      <joint name="gripper_left_finger" pos="0 0 0" axis="0 1 0" type="slide" limited="true" range="-0.0081 -1e-5" frictionloss="1" />
                     </body>
                     <body name="gripper_right_finger" pos="0 0 0.054" quat="1 0 0 0">
-                      <geom name="gripper_right_finger" mesh="gripper_lite_right_finger_internal" material="black" condim="4" solimp="2 1 0.01" solref="0.01 1" friction="1 0.005 0.0001"/>
+                      <inertial pos="0.0 0.005 0.01" quat="1 0 0 0" mass="0.024"
+                        diaginertia="1.961e-6 2.274e-6 1.238e-6" />
+                      <geom name="gripper_right_finger" mesh="gripper_lite_right_finger_narrow" material="black" condim="4" solimp="2 1 0.01" solref="0.01 1" friction="1 0.005 0.0001"/>
                       <joint name="gripper_right_finger" pos="0 0 0" axis="0 1 0" type="slide" limited="true" range="1e-5 0.0081" frictionloss="1" />
                     </body>
-                    <!-- End effector reference point is in the centre at the tip of the grippers -->
-                    <site name="end_effector" pos="0 0 0.0811" size="0.001 0.001 0.001" rgba="0.5 0.5 0.5 0.2"/>
+                    <!-- End effector reference point is in the middle of the tips of the grippers -->
+                    <site name="end_effector" pos="0 0 0.0811"/>
                   </body>
                 </body>
               </body>
@@ -150,18 +142,6 @@
           </body>
         </body>
       </body>
-    </body>
-
-    <!-- Scene objects for visualisation -->
-    <light pos="0 0 1.5" dir="0 0 -1" directional="true"/>
-    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
-
-    <!-- Free floating target body to visualise target/goal pose, with rectangular prism ends for distinction-->
-    <body name="target" pos=".3 .3 .3" quat="1 0 0 0" mocap="true">
-      <site name="target" group="2"/>
-      <!-- <geom class="target" fromto=".07 0 0 .15 0 0" rgba="1 0 0 1"/>
-      <geom class="target" fromto="0 .07 0 0 .15 0" rgba="0 1 0 1"/>
-      <geom class="target" fromto="0 0 .07 0 0 .15" rgba="0 0 1 1"/> -->
     </body>
   </worldbody>
 
