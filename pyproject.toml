@@ -1,5 +1,5 @@
 [project]
-name = "gym_xarmlite6"
+name = "gym_lite6"
 version = "0.0.1"
 description = "gym environment for UFactory Lite6 robot arm in MuJoCo"
 requires-python = ">=3.10"
