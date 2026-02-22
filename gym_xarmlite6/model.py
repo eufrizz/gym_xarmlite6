@@ -48,5 +48,9 @@ def get_spec(name: str = "lite6_gripper.xml") -> "mujoco.MjSpec":
 
 def get_model(name: str):
   model = get_spec(name).compile()
+  # Disable group 2 (velocity) actuator forces — actuatorgroupdisable in the XML
+  # only controls viewer visibility, not force computation. disableactuator has no
+  # XML equivalent, so it must be set here after compilation.
+  model.opt.disableactuator = 1 << 2
   return model
 
