@@ -39,18 +39,18 @@ def get_assets(meshdir: str) -> dict[str, bytes]:
     update_assets(assets, ASSETS_DIR / subdir, f"{meshdir}/{subdir}", glob="*.stl")
   return assets
 
-def get_spec(name: str = "lite6_gripper.xml") -> "mujoco.MjSpec":
+def get_spec(name: str = "lite6_gripper.xml", actuator_group_disable=2) -> "mujoco.MjSpec":
   import mujoco
   spec = mujoco.MjSpec.from_file(str(MODEL_DIR / name))
   spec.assets = get_assets(spec.meshdir)
+  # Disable group 2 (velocity) actuator forces — actuatorgroupdisable in the XML
+  # only controls viewer visibility, not force computation. disableactuator has no
+  # XML equivalent, so it must be set here after compilation.
+  spec.option.disableactuator = 1 << actuator_group_disable
   return spec
   
 
 def get_model(name: str):
   model = get_spec(name).compile()
-  # Disable group 2 (velocity) actuator forces — actuatorgroupdisable in the XML
-  # only controls viewer visibility, not force computation. disableactuator has no
-  # XML equivalent, so it must be set here after compilation.
-  model.opt.disableactuator = 1 << 2
   return model
 
