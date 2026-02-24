@@ -146,8 +146,8 @@
                       <geom name="gripper_right_finger_base" class="collision" mesh="gripper_lite_right_finger_wide_base" material="black" condim="1" solimp="2 1 0.01" solref="0.01 1" friction="5 0.5 0.1"/>
                       <geom name="gripper_right_finger" class="collision" mesh="gripper_lite_right_finger_wide_tip" material="black" condim="4" solimp="2 1 0.01" solref="0.01 1" friction="5 0.5 0.1"/>
                     </body>
-                    <!-- End effector reference point is in the centre at the tip of the grippers -->
-                    <site name="end_effector" pos="0 0 0.0811" size="0.001 0.001 0.001" rgba="0.5 0.5 0.5 0.2"/>
+                    <!-- End effector reference point is in the centre at the centre of the grippers -->
+                    <site name="end_effector" pos="0 0 0.077" size="0.001 0.001 0.001" rgba="0.5 0.5 0.5 0.2"/>
                   </body>
                 </body>
               </body>
