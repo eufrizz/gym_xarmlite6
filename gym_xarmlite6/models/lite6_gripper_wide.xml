@@ -30,7 +30,7 @@
         </default>
       </default>
       <default class="collision">
-        <geom group="3" mass="0" density="0" solimp="0.9 0.95 0.005" solref="0.04 1"/>
+        <geom group="3" mass="0" density="0" solimp="0.9 0.95 0.001" solref="0.02 1"/>
       </default>
 
     </default>
