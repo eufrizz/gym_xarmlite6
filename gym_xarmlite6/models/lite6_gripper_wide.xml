@@ -189,4 +189,12 @@
     <joint joint1="gripper_left_finger" joint2="gripper_right_finger" polycoef="0 -1 0 0 0"/>
   </equality>
 
+  <contact>
+    <!-- Finger bodies are siblings so MuJoCo does not suppress their mutual
+         contact. Excluding them prevents 100kN+ force spikes when the base
+         geoms overlap, which would otherwise cause NaN explosions in training.
+         Each finger still contacts the cube independently for gripping. -->
+    <exclude body1="gripper_left_finger" body2="gripper_right_finger"/>
+  </contact>
+
 </mujoco>
