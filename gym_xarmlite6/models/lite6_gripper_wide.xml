@@ -173,12 +173,12 @@
   </worldbody>
 
   <actuator>
-    <position name="joint1" joint="joint1" group="1" class="size1" kp="400" kv="40" ctrlrange="-6.28319 6.28319" />
-    <position name="joint2" joint="joint2" group="1" class="size1" kp="400" kv="40" ctrlrange="-2.61799 2.61799" />
-    <position name="joint3" joint="joint3" group="1" class="size2" kp="400" kv="40" ctrlrange="-0.06587 5.23599" />
-    <position name="joint4" joint="joint4" group="1" class="size2" kp="400" kv="40" ctrlrange="-6.28319 6.28319" />
-    <position name="joint5" joint="joint5" group="1" class="size2" kp="400" kv="40" ctrlrange="-2.1642 2.1642" />
-    <position name="joint6" joint="joint6" group="1" class="size3" kp="400" kv="40" ctrlrange="-6.28319 6.28319" />
+    <position name="joint1" joint="joint1" group="1" class="size1" kp="50" kv="5" ctrlrange="-6.28319 6.28319" />
+    <position name="joint2" joint="joint2" group="1" class="size1" kp="50" kv="5" ctrlrange="-2.61799 2.61799" />
+    <position name="joint3" joint="joint3" group="1" class="size2" kp="25" kv="3" ctrlrange="-0.06587 5.23599" />
+    <position name="joint4" joint="joint4" group="1" class="size2" kp="25" kv="3" ctrlrange="-6.28319 6.28319" />
+    <position name="joint5" joint="joint5" group="1" class="size2" kp="25" kv="3" ctrlrange="-2.1642 2.1642" />
+    <position name="joint6" joint="joint6" group="1" class="size3" kp="25" kv="3" ctrlrange="-6.28319 6.28319" />
 
     <!-- <velocity joint="joint1" group="2" class="size1" kv="600" ctrlrange="-4 4" />
     <velocity joint="joint2" group="2" class="size1" kv="600" ctrlrange="-4 4" />
